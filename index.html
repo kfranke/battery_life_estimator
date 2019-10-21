@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SX1 Battery Estimate</title>
+	<meta name="description" content="Operational Metrics and Tools">
+	<meta name="keywords" content="TORI,METRICS,STATS,TOOLS,PING,TRANSPONDER,BATTERY,LIFE,ESTIMATE">
+	<meta name="author" content="Kevin Franke">
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type='text/javascript' src='script.js'></script>
+</head>
+<body>
+	<div id="holding-container" class="container">
+		<p class="topic-heading">SX1 Days of life estimation</p>
+		<div id="hide_show_toggle">Show/Hide</div>
+		<div id="advanced-settings" class="">	
+			
+			<div id="device-specs" class="category">
+				<div class="single-field oem">
+					<label for="switcher_efficiency">Switcher Efficiency</label>
+					<input id="switcher_efficiency" class="entry" type="number" min="70" max="100">
+				</div>
+				<div class="single-field oem">
+					<label for="switcher_vin">Switcher VIN</label>
+					<input id="switcher_vin" class="entry" type="number" min="4" max="8" step="0.1">
+				</div>
+				<div class="single-field oem">
+					<label for="switcher_vout">Switcher VOUT</label>
+					<input id="switcher_vout" class="entry" type="number" min="2" max="5" step="0.1">
+				</div>
+			</div>
+
+			<div id="battery-capacity" class="category">
+				<div class="single-field advanced">
+					<label for="battery_spec_mah">Battery Spec mAh</label>
+					<input id="battery_spec_mah" class="entry" type="number" min="2000" max="6000">
+				</div>
+				<div class="single-field oem">
+					<label for="battery_spec_uas">Battery Spec uAs</label>
+					<input id="battery_spec_uas" class="entry" type="text" readonly>
+				</div>
+				<div class="single-field oem">
+					<label for="battery_derating">Derating %</label>
+					<input id="battery_derating" class="entry" type="number" min="0" max="10">
+				</div>
+				<div class="single-field oem">
+					<label for="battery_usable_uas">Usable uAs</label>
+					<input id="battery_usable_uas" class="entry" type="text" readonly>
+				</div>
+				<div class="single-field oem">
+					<label for="">STX on TX uA</label>
+					<input id="stx_on_tx_ua" class="entry" type="number" min="200000" max="400000" title="uA at Battery">
+				</div>
+				<div class="single-field oem">
+					<label for="gps_on_search_ua">GPS on Search uA</label>
+					<input id="gps_on_search_ua" class="entry" type="number" min="20000" max="40000" title="uA at Battery">
+				</div>
+				<div class="single-field oem">
+					<label for="non_tx_active_stx_ua">uA Avg between TX</label>
+					<input id="non_tx_active_stx_ua" class="entry" type="number" min="100" max="500" title="uA at Battery">
+				</div>
+				<div class="single-field oem">
+					<label for="avg_sec_between_tx">Avg Seconds between TX (7.5min)</label>
+					<input id="avg_sec_between_tx" class="entry" type="number" min="100" max="900">
+				</div>
+			</div>
+
+			<div id="transmit-power" class="category">
+				<div class="single-field oem">
+					<label for="single_xmission_seconds">TX Seconds for Single Xmission</label>
+					<input id="single_xmission_seconds" class="entry" type="number" min="1" max="3" step="0.1">
+				</div>
+				<div class="single-field oem">
+					<label for="num_bursts_per_msg"># Bursts per Message</label>
+					<input id="num_bursts_per_msg" class="entry" type="number" min="1" max="5">
+				</div>
+				<div class="single-field oem">
+					<label for="stx_msg_uas">uAs for STX Message</label>
+					<input id="stx_msg_uas" class="entry" type="text" readonly>
+				</div>
+				<div class="single-field oem">
+					<label for="between_stx_tx_uas">uAs Between STX Messages</label>
+					<input id="between_stx_tx_uas" class="entry" type="text" readonly>
+				</div>
+				<div class="single-field oem">
+					<label for="msg_xmission_uas">uAs per Message Xmission</label>
+					<input id="msg_xmission_uas" class="entry" type="text" readonly>
+				</div>
+			</div>
+
+			<div id="gps-power" class="category">
+				<div class="single-field oem">
+					<label for="gps_warmstart_solution_seconds">GPS Warmstart Solution Seconds</label>
+					<input id="gps_warmstart_solution_seconds" class="entry" type="number" min="10" max="30">
+				</div>
+				<div class="single-field oem">
+					<label for="gps_coldstart_solution_seconds">GPS Coldstart Solution Seconds</label>
+					<input id="gps_coldstart_solution_seconds" class="entry" type="number" min="30" max="120">
+				</div>
+				<div class="single-field oem">
+					<label for="gps_timeout_seconds">GPS Timeout Seconds</label>
+					<input id="gps_timeout_seconds" class="entry" type="number" min="120" max="720">
+				</div>
+				<div class="single-field oem">
+					<label for="gps_warmstart_percentage">Warmstart Percentage</label>
+					<input id="gps_warmstart_percentage" class="entry" type="text" readonly>
+				</div>
+				<div class="single-field oem">
+					<label for="gps_coldstart_percentage">GPS Coldstart Percentage</label>
+					<input id="gps_coldstart_percentage" class="entry" type="text" readonly>
+				</div>
+				<div class="single-field oem">
+					<label for="gps_timeout_percentage">GPS Timeout Percentage</label>
+					<input id="gps_timeout_percentage" class="entry" type="number" min="1" max="50">
+				</div>
+				<div class="single-field">
+					<label for="gps_estimated_fix_seconds">GPS Estimated Fix Search Seconds</label>
+					<input id="gps_estimated_fix_seconds" class="entry" type="text" readonly>
+				</div>
+				<div class="single-field oem">
+					<label for="gps_mean_uas_per_day">Mean uAs per Day of GPS Solutions</label>
+					<input id="gps_mean_uas_per_day" class="entry" type="text" readonly>
+				</div>
+			</div>
+
+			<div id="sleep-power" class="category">
+				<div class="single-field oem">
+					<label for="sleep_current_uas">Sleep Current uAs</label>
+					<input id="sleep_current_uas" class="entry" type="number" min="10" max="2000">
+				</div>
+				<div class="single-field oem">
+					<label for="sleep_current_per_day_uas">Sleep Current uAs per Day</label>
+					<input id="sleep_current_per_day_uas" class="entry readonly" type="text" readonly>
+				</div>
+			</div>
+
+			<div id="power-usage" class="category">
+				<div class="single-field">
+					<label for="total_current_used_per_day_uas">Total uAs Used per Day</label>
+					<input id="total_current_used_per_day_uas" class="entry readonly" type="text" readonly>
+				</div>
+			</div>
+		</div>
+		
+		<div id="standard-settings">
+			<div id="device-configuration" class="category">
+				<div class="single-field standard">
+					<label for="transmits_per_day">Transmits Per Day</label>
+					<div id="transmits_per_day_value" class="inline"></div>
+					<input id="transmits_per_day" class="entry" type="range" min="1" max="96">
+				</div>
+				<div class="single-field standard">
+					<label for="engineering_message_frequency">Engineering Message Frequency</label>
+					<div id="engineering_message_frequency_value" class="inline"></div>
+					<input id="engineering_message_frequency" class="entry" type="range" min="1" max="31">
+				</div>
+				<div class="single-field standard">
+					<label for="vertically_mounted">Vertically Mounted</label>
+					<input id="vertically_mounted" class="entry" type="checkbox">
+				</div>
+				<div class="single-field standard">
+					<label for="gps_estimated_fix_seconds_override">Override GPS Estimated Fix Seconds</label>
+					<input id="gps_estimated_fix_seconds_override" class="entry" type="checkbox">
+				</div>
+				<div class="single-field advanced hideable">
+					<label for="gps_manual_fix_seconds">Manual Avg GPS Fix Seconds</label>
+					<div id="gps_manual_fix_seconds_value" class="inline"></div>
+					<!-- <input id="gps_manual_fix_seconds" class="entry" type="range" min="15" max="720"> -->
+					<input id="gps_manual_fix_seconds" class="entry" type="number" min="15" max="720">
+				</div>	
+			</div>
+		</div>
+		
+		<div id="results">
+			<div id="life-estimation" class="category">
+				<div class="single-field">
+					<label for="days_of_life">Days of Service</label>
+					<input id="days_of_life" class="entry-result" type="text">
+				</div>
+				<div class="single-field">
+					<label for="years_of_life">Years of Service</label>
+					<input id="years_of_life" class="entry-result" type="text">
+				</div>
+				<div class="single-field">
+					<label for="total_transmits">Total Transmits</label>
+					<input id="total_transmits" class="entry-result" type="text">
+				</div>
+			</div>
+		</div>
+		
+		<div id="disclaimers" class="container-footer">
+			<br><span>This website is proudly not supported on Internet Explorer. </span>
+			<span>Webpage design and content by Kevin Franke. </span>
+			<span>By accessing this site the user agrees to all terms and conditions.</span>
+			<br><span>Estimations are best guess. User acknowledges that there are factors that we cannot account for.</span>
+		</div>
+	</div>
+</body>
+</html>
